@@ -1,0 +1,8 @@
+gitingest
+google
+google-genai
+groq
+dotenv
+fastapi 
+uvicorn
+pydantic
