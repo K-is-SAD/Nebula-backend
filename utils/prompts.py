@@ -52,27 +52,48 @@ You must return a valid, well-formed JSON object with the following structure:
       "code": "function transferOwnership(address newOwner) external onlyOwner {\\n  require(newOwner != address(0), 'Invalid address');\\n  emit OwnershipTransferred(_owner, newOwner);\\n  _owner = newOwner;\\n}",
       "components_classes": ["OwnershipContract", "TransferController"]
     }
-  ]
+  ],
+  "component_relationships": [
+    {
+      "source": "TransactionProcessor",
+      "target": "PaymentHandler",
+      "relationship_type": "calls",
+      "description": "TransactionProcessor invokes PaymentHandler methods for payment execution"
+    }
+  ],
+  "code_metrics": {
+    "complexity": {
+      "cyclomatic": "medium",
+      "cognitive": "low-to-medium"
+    },
+    "maintainability": "high",
+    "test_coverage_estimate": "medium"
+  }
 }
 
 ### PROCESSING INSTRUCTIONS:
-1. Scan the entire chunk to identify all potentially important files
-2. Evaluate each file against the importance criteria
+1. Scan the entire chunk to identify all potentially important files and their interconnections
+2. Evaluate each file against the importance criteria including cross-component dependencies
 3. For important files, extract only the code sections meeting the inclusion criteria
 4. Identify and list all classes, components, or major functions defined in each file
-5. Format your response according to the specified JSON structure
-6. Ensure the JSON is valid with proper escaping of special characters
-7. Continue this process for all provided chunks, appending results as you proceed
+5. Map relationships between components using static analysis of function calls and imports
+6. Estimate code quality metrics based on observed patterns and practices
+7. Infer architectural decisions from implementation patterns and component organization
+8. Format your response according to the specified JSON structure
+9. Ensure the JSON is valid with proper escaping of special characters
+10. Continue this process for all provided chunks, appending results as you proceed
 
 ### CRITICAL REMINDERS:
 - Your response MUST be a valid, parseable JSON object
 - REMOVE ALL special characters like newlines ('\\n'), backticks ('```json', '```')
 - DO NOT include explanatory text, markdown formatting, or commentary
 - DO NOT wrap your response in code blocks or other formatting
+- ANALYZE contract invariants and security patterns in blockchain code
+- IDENTIFY potential edge cases and exception paths in business logic
+- DETECT and document implicit architectural patterns that may not be explicitly stated
+- CATALOG reused patterns and utilities across the codebase
+- ESTIMATE potential performance bottlenecks based on algorithmic complexity
 - FOCUS on delivering high-quality, relevant code extractions that reveal the project's architecture and functionality
-
-Now analyze the following chunk. Execute your analysis with precision and thoroughness.
----
 """
 
 integration_prompts = """You are an elite-tier large language model with exceptional capabilities in software architecture analysis, code comprehension, and technical documentation. You've been entrusted with synthesizing extracted data from a comprehensive GitHub repository analysis to produce a definitive understanding of the project's architecture, implementation, and technical characteristics.
@@ -165,6 +186,4 @@ Your response must be a valid, comprehensive JSON object structured as follows:
 - DO NOT include explanatory text, markdown formatting, or commentary
 - DO NOT wrap your response in code blocks or other formatting
 - STRIVE for a definitive, authoritative analysis that could serve as formal technical documentation
-
-Based on your analysis of all repository chunks, synthesize your findings into the required format.
 """
