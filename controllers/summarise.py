@@ -44,10 +44,17 @@ def analyze_with_gemini(repo_summary, repo_tree, repo_content):
         content_chunks = split_into_chunks(repo_content, CHUNK_SIZE)
         
         base_prompt = (
-            "You are analyzing a GitHub repository in parts. "
-            "First, understand the repository structure and key files.\n\n"
+            "You are a senior software developer analyzing a GitHub repository. "
+            "Provide a thorough, structured analysis that would help someone understand the codebase quickly.\n\n"
             f"Repository Summary: {repo_summary}\n\n"
-            f"Repository Files: {repo_tree}\n\n"
+            f"Repository Files Structure: {repo_tree}\n\n"
+            "Your analysis should:\n"
+            "1. Identify the main purpose of this repository\n"
+            "2. Highlight key components, frameworks, and technologies used\n"
+            "3. Outline the architecture and how components interact\n"
+            "4. Identify entry points and core functionality\n"
+            "5. Note any interesting patterns or potential issues\n"
+            "Be precise and technical in your assessment.\n\n"
         )
         
         responses = []
